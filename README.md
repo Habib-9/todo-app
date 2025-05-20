@@ -27,13 +27,10 @@ todo-app/
 │ │ └─ styles.css
 │ ├─ js/
 │ │ ├─ model.js
-│ │ ├─ view.js
-│ │ ├─ viewmodel.js
 │ │ └─ main.js
 │ └─ index.html
 ├─ README.md
 └─ .gitignore
-
 
 ---
 
@@ -46,39 +43,61 @@ cd backend
 npm install
 npm run dev
 
-Frontend
-Obre frontend/index.html al navegador.
+Si no feu servir nodemon, podeu substituir npm run dev per:
 
----
+bash
+Copiar
+Editar
+node app.js
+
+
+Podeu obrir directament frontend/index.html al navegador, o bé servir-lo amb un servidor estàtic, per exemple:
+
+bash
+Copiar
+Editar
+cd frontend
+python3 -m http.server 3000
+i obrir http://localhost:3000.
+
+Nota: El frontend fa les peticions a
+http://localhost:5000/api/tasks
+així que heu d’assegurar-vos que el backend estigui escoltant en el port 5000.
 
 Endpoints de l’API
 GET /api/tasks — Llistar totes les tasques
 
-POST /api/tasks — Crear una tasca
+POST /api/tasks — Crear una tasca (enviar { "title": "Text" })
 
-PUT /api/tasks/:id — Actualitzar tasca
+PUT /api/tasks/:id — Actualitzar una tasca (enviar { "done": true })
 
-DELETE /api/tasks/:id — Esborrar tasca
-
----
+DELETE /api/tasks/:id — Esborrar una tasca
 
 Patró MVVM
 L’aplicació frontend segueix el patró MVVM amb Vue 3:
 
-Model: gestionat a js/model.js per fer les peticions API.
+Model: gestionat a frontend/js/model.js per fer les peticions API.
 
-ViewModel: a js/viewmodel.js exposa dades i mètodes reactivament a Vue.
+ViewModel + View: combinats a frontend/js/main.js, exposen dades reactives i mètodes a la plantilla de index.html.
 
-View: la part visual està a index.html i js/view.js, gestionant la interacció amb DOM.
+Git i commits
+Hem realitzat més de 4 commits durant el desenvolupament, marcant passos clau:
 
+Estructura de carpetes creada
 
-### Paso 4: Guardar y salir
+Backend bàsic amb connexió i ping
 
-- En nano: presiona `Ctrl + O` para guardar y luego `Ctrl + X` para salir.
+Model i controlador CRUD
 
-### Paso 5: Añadir, hacer commit y subir los cambios a GitHub
+Rutes configurades
 
-```bash
-git add README.md
-git commit -m "README completat"
-git push origin main
+Proves amb curl passades
+
+Frontend MVVM amb Vue
+
+Estils CSS aplicats
+
+README completat
+
+Versió final i entrega
+
