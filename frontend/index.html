@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo App</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Aquí Vue montará la app -->
+    <h1>Todo App</h1>
+    
+    <input v-model="newTitle" placeholder="Nueva tarea" />
+    <button @click="addTask">Añadir</button>
+
+    <ul>
+      <li v-for="task in tasks" :key="task._id">
+        <input type="checkbox" :checked="task.done" @change="toggleDone(task)" />
+        <span :style="{ textDecoration: task.done ? 'line-through' : 'none' }">{{ task.title }}</span>
+        <button @click="removeTask(task)">Eliminar</button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3"></script>
+  
+  <script src="js/model.js"></script>
+  <script src="js/viewmodel.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
