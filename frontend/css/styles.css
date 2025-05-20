@@ -7,8 +7,8 @@
   
   body {
     font-family: Arial, sans-serif;
-    background: #f0f2f5;
-    padding: 20px;
+    background: #f9f9f9;
+    padding: 2rem;
     display: flex;
     justify-content: center;
   }
@@ -17,25 +17,28 @@
     width: 100%;
     max-width: 480px;
     background: white;
-    padding: 20px;
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
   
   h1 {
-    margin-bottom: 15px;
     text-align: center;
-    color: #333;
+    margin-bottom: 1rem;
   }
   
-  input[type="text"], input[v-model] {
-    width: calc(100% - 90px);
-    padding: 10px;
+  .input-group {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+  
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 4px 0 0 4px;
     outline: none;
-    transition: border-color 0.3s;
   }
   
   input[type="text"]:focus {
@@ -43,84 +46,74 @@
   }
   
   button {
-    width: 70px;
-    margin-left: 10px;
-    padding: 10px 0;
-    background-color: #4a90e2;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
     border: none;
+    background: #4a90e2;
     color: white;
-    font-weight: bold;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    border-radius: 0 4px 4px 0;
+    transition: background 0.3s;
   }
   
   button:hover {
-    background-color: #357ABD;
+    background: #357abd;
   }
   
   ul {
     list-style: none;
-    margin-top: 20px;
+    margin-top: 1rem;
   }
   
   li {
+    background: #fff;
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    justify-content: space-between;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   }
   
-  li:last-child {
-    border-bottom: none;
-  }
-  
-  li span {
+  li label {
+    display: flex;
+    align-items: center;
     flex-grow: 1;
-    font-size: 1.1rem;
-  }
-  
-  li input[type="checkbox"] {
-    margin-right: 15px;
-    width: 18px;
-    height: 18px;
     cursor: pointer;
   }
   
-  /* Tarea hecha: texto con línea y color gris */
-  li span[style*="line-through"] {
+  li label.done {
+    text-decoration: line-through;
     color: #999;
   }
   
-  /* Botón eliminar */
-  li button {
-    background-color: #e74c3c;
-    width: 60px;
-    margin-left: 15px;
+  li label input {
+    margin-right: 0.5rem;
+    width: 16px;
+    height: 16px;
   }
   
-  li button:hover {
-    background-color: #c0392b;
+  .delete-btn {
+    background: #e74c3c;
+    border-radius: 4px;
+    padding: 0.3rem 0.6rem;
   }
   
-  /* Responsividad */
+  .delete-btn:hover {
+    background: #c0392b;
+  }
+  
+  /* Responsive */
   @media (max-width: 500px) {
+    body {
+      padding: 1rem;
+    }
     #app {
-      padding: 15px;
-      width: 95%;
+      padding: 1rem;
     }
-  
-    input[type="text"] {
-      width: calc(100% - 85px);
-    }
-  
-    button {
-      width: 60px;
+    button, .delete-btn {
       font-size: 0.9rem;
-    }
-  
-    li span {
-      font-size: 1rem;
     }
   }
   

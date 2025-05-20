@@ -2,32 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Todo App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To‑Do List MVVM Vue</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <div id="app">
-    <!-- Aquí Vue montará la app -->
-    <h1>Todo App</h1>
-    
-    <input v-model="newTitle" placeholder="Nueva tarea" />
-    <button @click="addTask">Añadir</button>
-
+    <h1>To‑Do List</h1>
+    <div class="input-group">
+      <input
+        v-model="newTitle"
+        @keyup.enter="addTask"
+        placeholder="Nueva tarea"
+      />
+      <button @click="addTask">Añadir</button>
+    </div>
     <ul>
       <li v-for="task in tasks" :key="task._id">
-        <input type="checkbox" :checked="task.done" @change="toggleDone(task)" />
-        <span :style="{ textDecoration: task.done ? 'line-through' : 'none' }">{{ task.title }}</span>
-        <button @click="removeTask(task)">Eliminar</button>
+        <label :class="{ done: task.done }">
+          <input
+            type="checkbox"
+            v-model="task.done"
+            @change="toggleDone(task)"
+          />
+          {{ task.title }}
+        </label>
+        <button @click="removeTask(task)" class="delete-btn">Eliminar</button>
       </li>
     </ul>
   </div>
 
-  <!-- Vue 3 CDN -->
-  <script src="https://unpkg.com/vue@3"></script>
-  
+  <!-- Vue 3 dev build (ok para desarrollo) -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="js/model.js"></script>
-  <script src="js/viewmodel.js"></script>
-  <script src="js/view.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
