@@ -1,25 +1,31 @@
+// backend/controllers/taskController.js
 const Task = require('../models/Task');
 
-exports.createTask = async (req, res) => {
-  try {
-    const newTask = new Task({ title: req.body.title, done: false });
-    const saved = await newTask.save();
-    res.status(201).json(saved);
-  } catch (e) {
-    res.status(500).json({ message: 'Error al crear tarea', error: e.message });
-  }
-};
-
-exports.getTasks = async (_, res) => {
+exports.getTasks = async (req, res, next) => {
   try {
     const tasks = await Task.find().sort({ createdAt: -1 });
-    res.json(tasks);
-  } catch (e) {
-    res.status(500).json({ message: 'Error al obtener tareas', error: e.message });
+    return res.json(tasks);
+  } catch (err) {
+    console.error('Error in getTasks:', err);
+    return next(err);
   }
 };
 
-exports.updateTask = async (req, res) => {
+exports.createTask = async (req, res, next) => {
+  try {
+    if (!req.body.title) {
+      return res.status(400).json({ message: 'El títol és obligatori' });
+    }
+    const newTask = new Task({ title: req.body.title, done: false });
+    const saved = await newTask.save();
+    return res.status(201).json(saved);
+  } catch (err) {
+    console.error('Error in createTask:', err);
+    return next(err);
+  }
+};
+
+exports.updateTask = async (req, res, next) => {
   try {
     const updated = await Task.findByIdAndUpdate(
       req.params.id,
@@ -27,18 +33,20 @@ exports.updateTask = async (req, res) => {
       { new: true }
     );
     if (!updated) return res.status(404).json({ message: 'Tarea no encontrada' });
-    res.json(updated);
-  } catch (e) {
-    res.status(500).json({ message: 'Error al actualizar tarea', error: e.message });
+    return res.json(updated);
+  } catch (err) {
+    console.error('Error in updateTask:', err);
+    return next(err);
   }
 };
 
-exports.deleteTask = async (req, res) => {
+exports.deleteTask = async (req, res, next) => {
   try {
     const deleted = await Task.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Tarea no encontrada' });
-    res.json({ message: 'Tarea eliminada' });
-  } catch (e) {
-    res.status(500).json({ message: 'Error al eliminar tarea', error: e.message });
+    return res.json({ message: 'Tarea eliminada' });
+  } catch (err) {
+    console.error('Error in deleteTask:', err);
+    return next(err);
   }
 };

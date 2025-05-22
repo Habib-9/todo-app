@@ -2,38 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>To‑Do List MVVM Vue</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>To-Do List</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <div id="app">
-    <h1>To‑Do List</h1>
-    <div class="input-group">
-      <input
-        v-model="newTitle"
-        @keyup.enter="addTask"
-        placeholder="Nueva tarea"
-      />
-      <button @click="addTask">Añadir</button>
-    </div>
-    <ul>
-      <li v-for="task in tasks" :key="task._id">
-        <label :class="{ done: task.done }">
-          <input
-            type="checkbox"
-            v-model="task.done"
-            @change="toggleDone(task)"
-          />
-          {{ task.title }}
-        </label>
-        <button @click="removeTask(task)" class="delete-btn">Eliminar</button>
-      </li>
-    </ul>
-  </div>
+  <div id="app"></div>
 
-  <!-- Vue 3 dev build (ok para desarrollo) -->
+  <!-- Vue 3 dev build -->
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- Model y main como scripts globales -->
   <script src="js/model.js"></script>
   <script src="js/main.js"></script>
 </body>

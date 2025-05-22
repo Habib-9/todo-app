@@ -1,27 +1,47 @@
-// frontend/js/model.js
-const API_BASE = 'http://localhost:5000/api/tasks';
+// model.js
 
-const TaskModel = {
+window.TaskModel = {
+  API_BASE: '/api/tasks',
+
   fetchAll() {
-    return fetch(API_BASE).then(res => res.json());
+    return fetch(this.API_BASE)
+      .then(res => {
+        if (!res.ok) throw new Error('Error al carregar tasques');
+        return res.json();
+      });
   },
+
   create(title) {
-    return fetch(API_BASE, {
+    return fetch(this.API_BASE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ title })
-    }).then(res => res.json());
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error al crear tasca');
+      return res.json();
+    });
   },
+
   update(task) {
-    return fetch(`${API_BASE}/${task._id}`, {
+    return fetch(`${this.API_BASE}/${task._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ done: task.done })
-    }).then(res => res.json());
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error al actualitzar tasca');
+      return res.json();
+    });
   },
+
   delete(task) {
-    return fetch(`${API_BASE}/${task._id}`, {
+    return fetch(`${this.API_BASE}/${task._id}`, {
       method: 'DELETE'
-    }).then(res => res.json());
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Error al eliminar tasca');
+      return res.json();
+    });
   }
 };
