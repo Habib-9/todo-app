@@ -1,28 +1,21 @@
 require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
+const express   = require('express');
+const cors      = require('cors');
 const connectDB = require('./config/db');
+const tasksRoutes  = require('./routes/tasks');
 
 const app = express();
 
-// Conectar a la base de datos
+// Conexión a MongoDB
 connectDB();
 
 // Middlewares
 app.use(cors());
 app.use(express.json());
 
-// Endpoint de prueba
-app.get('/api/ping', (req, res) => {
-  res.send('pong');
-});
+// Rutas API únicamente
+app.use('/api/tasks', tasksRoutes);
 
-// Rutas de tareas
-app.use('/api/tasks', require('./routes/tasks'));
-
-// Puerto desde .env
+// Arranca servidor
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`API running on http://localhost:${PORT}`));
